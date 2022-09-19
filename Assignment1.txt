@@ -1,0 +1,141 @@
+Microsoft Windows [Version 10.0.19044.1706]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\SAI>mysql -u root -p
+'mysql' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\Users\SAI>cd C:\Program Files\MySQL\MySQL Server 8.0\bin
+
+C:\Program Files\MySQL\MySQL Server 8.0\bin>mysql -u root -p
+Enter password: **
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 17
+Server version: 8.0.30 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| ass1               |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+7 rows in set (0.01 sec)
+
+mysql> create database Football;
+Query OK, 1 row affected (0.12 sec)
+
+mysql> use Football
+Database changed
+mysql> create table football;
+ERROR 4028 (HY000): A table must have at least one visible column.
+mysql> create table football(id int,name varchar(25),city varchar(20));
+Query OK, 0 rows affected (0.20 sec)
+
+mysql> insert into football values("Rohan","Pune");
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into football values(1,"Rohan","Pune");
+Query OK, 1 row affected (0.03 sec)
+
+mysql> alter table football add column age int;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from football;
++------+-------+------+------+
+| id   | name  | city | age  |
++------+-------+------+------+
+|    1 | Rohan | Pune | NULL |
++------+-------+------+------+
+1 row in set (0.00 sec)
+
+mysql> alter table football rename id to roll_no;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'to roll_no' at line 1
+mysql> alter table football rename column id to roll_no;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select roll_no,name from football;
++---------+-------+
+| roll_no | name  |
++---------+-------+
+|       1 | Rohan |
++---------+-------+
+1 row in set (0.00 sec)
+
+mysql> update football details set age=25 where name="sarthak";
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> select * from football;
++---------+-------+------+------+
+| roll_no | name  | city | age  |
++---------+-------+------+------+
+|       1 | Rohan | Pune | NULL |
++---------+-------+------+------+
+1 row in set (0.00 sec)
+
+mysql> alter table football drop column age;
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from football;
++---------+-------+------+
+| roll_no | name  | city |
++---------+-------+------+
+|       1 | Rohan | Pune |
++---------+-------+------+
+1 row in set (0.00 sec)
+
+mysql> create table football_details(id int NOT NULL,name varchar(25),city char(15));
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> insert into football_details values(NULL,"Rohan","Pune");
+ERROR 1048 (23000): Column 'id' cannot be null
+mysql> create table footbal(id int NOT NULL PRIMARY KEY AUTO_INCREMENT,name varchar(25) UNIQUE,city char(15));
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> insert into footbal(name,city) values("Rohan","Pune");
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into footbal(name,city) values("Rohan","Nashik");
+ERROR 1062 (23000): Duplicate entry 'Rohan' for key 'footbal.name'
+mysql> select * from footbal;
++----+-------+------+
+| id | name  | city |
++----+-------+------+
+|  1 | Rohan | Pune |
++----+-------+------+
+1 row in set (0.00 sec)
+
+mysql> drop database Football;
+Query OK, 3 rows affected (0.15 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| ass1               |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+7 rows in set (0.00 sec)
+
+mysql>

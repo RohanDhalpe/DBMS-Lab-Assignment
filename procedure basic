@@ -1,0 +1,45 @@
+
+
+create table stud_marks(name varchar2(25),total_marks int);
+create table result(Roll int,Name varchar(25),class varchar(25);
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+create or replace procedure proc_grade(Roll IN number,name IN VARCHAR2,marks IN number)
+AS
+begin
+   if(marks<=1500 and marks>=990) then
+   dbms_output.put_line('Dinstinction !');
+   insert into result values(Roll,name,'Dinstinction !');
+   
+   elsif(marks<=989 and marks>=900) then
+   dbms_output.put_line('First Class !');
+   insert into result values(Roll,name,'First Class !');
+
+   elsif(marks<=899 and marks>=825) then
+   dbms_output.put_line('Higher second Class !');
+   insert into result values(Roll,name,'Higher second Class !');
+
+   else
+     dbms_output.put_line('Failed!');
+   end if;
+
+  insert into stud_marks values(name,marks);
+  end proc_grade;
+  /
+/////////////////////////////////////////////////////////////////////////
+
+begin
+proc_grade(1,'rohan',1100);
+proc_grade(2,'yogesh',850);
+end;
+/
+
+select *from stud_marks;
+select *from result;
+
+
+
+  
+   

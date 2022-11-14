@@ -1,0 +1,10 @@
+declare
+cursor for_cursor is select rno,name,status from old_rollcall where status='present';
+tmp for_cursor%rowtype;
+
+begin
+for tmp in for_cursor loop
+dbms_output.put_line('ROLL NO'||tmp.rno||' '||'NAME'||tmp.name||' '||'STATUS'||tmp.status); 
+end loop;
+end;
+/

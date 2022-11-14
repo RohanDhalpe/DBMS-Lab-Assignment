@@ -49,11 +49,6 @@ SQL> insert into new_rollcall values(5,'sarthak','present');
 
 1 row created.
 
-SQL> select *from old_rolcall;
-select *from old_rolcall
-             *
-ERROR at line 1:
-ORA-00942: table or view does not exist
 
 
 SQL> select *from old_rollcall;
@@ -71,14 +66,28 @@ SQL> select *from new_rollcall;
          4 suyash               present
          5 sarthak              present
 
-SQL> edit implcitcursor.sql
 
 SQL> set serveroutput on;
-SQL> @implicitcursor;
-SP2-0310: unable to open file "implicitcursor.sql"
-SQL> edit implcitcursor.sql
-
 SQL> edit implicitcursorrohan.sql
+
+
+---------------------------------------------------------------
+ begin                                                         
+ update old_RollCall set status='Present' where rno=3;
+if sql%found then
+	dbms_output.put_line('Updated');
+end if;
+if sql%notfound then
+	dbms_output.put_line(' not Updated');
+end if;
+if sql%rowcount=0 then
+	dbms_output.put_line('not Updated');
+end if;
+end;
+/
+---------------------------------------------------------------
+
+
 
 SQL>  @implicitcursorrohan;
 updated succesfully

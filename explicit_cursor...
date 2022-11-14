@@ -1,0 +1,116 @@
+Enter user-name: system
+Enter password:
+
+Connected to:
+Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
+
+SQL> drop table old_rollcall;
+
+Table dropped.
+
+SQL> drop table new_rollcall;
+
+Table dropped.
+
+SQL> create table old_rollcall(rno int,name varchar(50),status varchar(50));
+
+Table created.
+
+SQL> create table new_rollcall(rno int,name varchar(50),status varchar(50));
+
+Table created.
+
+SQL> insert into old_rollcall values(1,'rohan','present');
+
+1 row created.
+
+SQL> insert into old_rollcall values(2,'mohan','present');
+
+1 row created.
+
+SQL> insert into old_rollcall values(3,'aman','present');
+
+1 row created.
+
+SQL> insert into old_rollcall values(4,'raj','present');
+
+1 row created.
+
+SQL> insert into new_rollcall values(4,'raj','present');
+
+1 row created.
+
+SQL> insert into new_rollcall values(5,'roshan','present');
+
+1 row created.
+
+SQL> select *from old_rollcall;
+
+       RNO NAME
+---------- --------------------------------------------------
+STATUS
+--------------------------------------------------
+         1 rohan
+present
+
+         2 mohan
+present
+
+         3 aman
+present
+
+
+       RNO NAME
+---------- --------------------------------------------------
+STATUS
+--------------------------------------------------
+         4 raj
+present
+
+
+SQL> select *from new_rollcall;
+
+       RNO NAME
+---------- --------------------------------------------------
+STATUS
+--------------------------------------------------
+         4 raj
+present
+
+         5 roshan
+present
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+SQL> set serveroutput on;
+SQL> edit file.sql
+set serveroutput on;
+
+declare
+cursor explicit_cur is select rno,name,status from old_rollCall where status='Present';
+tmp explicit_cur%rowtype;
+begin
+dbms_output.put_line('hiii...this is test');
+open explicit_cur;
+loop exit when explicit_cur%notfound;
+fetch explicit_cur into tmp;
+dbms_output.put_line('ROLLNO:'||tmp.rno ||' '||'NAME:'||tmp.name||' '||'Status:'||tmp.status);
+end loop;
+
+if explicit_cur%rowcount>0 then
+dbms_output.put_line(explicit_cur%rowcount||'rows found');
+else
+dbms_output.put_line('no rows found');
+end if;
+close explicit_cur;
+end;
+/
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+outout:
+
+hiii...this is test
+ROLLNO:1 NAME:rohan Status:present
+ROLLNO:2 NAME:mohan Status:present
+ROLLNO:3 NAME:aman Status:present
+ROLLNO:4 NAME:raj Status:present
+ROLLNO:4 NAME:raj Status:present
+4rows found
